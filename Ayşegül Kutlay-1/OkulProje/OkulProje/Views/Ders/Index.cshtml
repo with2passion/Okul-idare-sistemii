@@ -1,0 +1,84 @@
+﻿@model OkulProje.Models.DersModel
+@{
+    ViewData["Title"] = "Ders Page";
+}
+
+<h1>Ders Listesi</h1>
+<br />
+@{
+    @if (TempData["SaveStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["SaveStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla kaydedildi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+    @if (TempData["UpdateStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["UpdateStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla güncellendi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+    @if (TempData["DeleteStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["DeleteStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla silindi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+}
+<br />
+<br />
+<br />
+<a href="/Ders/Kaydet">Ders Ekle</a>
+<br />
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Ad</th>
+            <th>Kredi</th>
+            <th>OkulYonetimId</th>
+
+        </tr>
+        @if (Model.DersList.Count > 0)
+        {
+            foreach (var item in Model.DersList)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Ad</td>
+                    <td>@item.Kredi</td>
+                    <td>@item.OkulYonetimId</td>
+                    <td>
+                        <a href="/Ders/Guncelle/?Id=@item.Id">Güncelle</a>&nbsp;|&nbsp;
+                        <a href="/Ders/Sil/?Id=@item.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Kayıt Bulunamadı</td>
+            </tr>
+        }
+    </thead>
+</table>

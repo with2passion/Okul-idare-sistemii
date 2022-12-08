@@ -1,0 +1,26 @@
+﻿@model OkulProje.Models.Ders
+@using (Html.BeginForm("Guncelle", "Ders", FormMethod.Post))
+{
+    <table width="40%">
+        <tr>
+            <td style="width:20%">Ad</td>
+            <td style="width:80%">
+                @Html.HiddenFor(m=>m.Id)
+                @Html.TextBoxFor(m=>m.Ad,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Kredi</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.Kredi,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Okul Yönetim Id</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.OkulYonetimId,new{@class="form-control"})
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Guncelle" />
+}

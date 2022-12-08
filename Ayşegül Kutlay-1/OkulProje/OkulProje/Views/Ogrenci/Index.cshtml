@@ -1,0 +1,87 @@
+﻿@model OkulProje.Models.OgrenciModel
+@{
+    ViewData["Title"] = "Ogrenci Page";
+}
+
+<h1>Öğrenci Listesi</h1>
+<br />
+@{
+    @if (TempData["SaveStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["SaveStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla kaydedildi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+    @if (TempData["UpdateStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["UpdateStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla güncellendi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+    @if (TempData["DeleteStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["DeleteStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla silindi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+}
+<br />
+<br />
+<br />
+<a href="/Ogrenci/Kaydet">Yeni Öğrenci Ekle</a>
+<br />
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>İsim Soyisim</th>
+            <th>Kayıt Tarihi</th>
+            <th>Öğrenci No</th>
+            <th>Doğum Tarihi</th>
+            <th>Bölüm</th>
+        </tr>
+        @if (Model.OgrenciList.Count > 0)
+        {
+            foreach (var item in Model.OgrenciList)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.AdSoyad</td>
+                    <td>@item.KayitTarih</td>
+                    <td>@item.OgrenciNo</td>
+                    <td>@item.Dtarih</td>
+                    <td>@item.Bolum</td>
+                    <td>
+                        <a href="/Ogrenci/Guncelle/?Id=@item.Id">Güncelle</a>&nbsp;|&nbsp;
+                        <a href="/Ogrenci/Sil/?Id=@item.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Kayıt Bulunamadı</td>
+            </tr>
+        }
+    </thead>
+</table>

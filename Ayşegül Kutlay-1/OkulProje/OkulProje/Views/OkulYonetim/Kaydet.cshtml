@@ -1,0 +1,25 @@
+﻿@model OkulProje.Models.OkulYonetim
+@using (Html.BeginForm("Kaydet", "OkulYonetim", FormMethod.Post))
+{
+    <table width="40%">
+        <tr>
+            <td style="width:20%">Ad Soyad</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.AdSoyad,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Görevi</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.Gorevi,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Yönetim Tip</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.YonetimTip,new{@class="form-control"})
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Kaydet" />
+}

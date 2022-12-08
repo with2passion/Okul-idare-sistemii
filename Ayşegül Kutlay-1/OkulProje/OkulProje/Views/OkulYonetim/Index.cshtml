@@ -1,0 +1,84 @@
+﻿@model OkulProje.Models.OkulYonetimModel
+@{
+    ViewData["Title"] = "OkulYonetim Page";
+}
+
+<h1>Okul Yönetim Listesi</h1>
+<br />
+@{
+    @if (TempData["SaveStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["SaveStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla kaydedildi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+    @if (TempData["UpdateStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["UpdateStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla güncellendi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+    @if (TempData["DeleteStatus"] != null)
+    {
+        int status = Convert.ToInt32(TempData["DeleteStatus"]);
+        if (status == 1)
+        {
+            <span class="alert alert-success">Veri başarıyla silindi</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">Hata!</span>
+        }
+    }
+}
+<br />
+<br />
+<br />
+<a href="/OkulYonetim/Kaydet">Okul İdare Ekle</a>
+<br />
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>İsim Soyisim</th>
+            <th>Görevi</th>
+            <th>Yönetim Tip</th>
+         
+        </tr>
+        @if (Model.OkulYonetimList.Count > 0)
+        {
+            foreach (var item in Model.OkulYonetimList)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.AdSoyad</td>
+                    <td>@item.Gorevi</td>
+                    <td>@item.YonetimTip</td>
+                    <td>
+                        <a href="/OkulYonetim/Guncelle/?Id=@item.Id">Güncelle</a>&nbsp;|&nbsp;
+                        <a href="/OkulYonetim/Sil/?Id=@item.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Kayıt Bulunamadı</td>
+            </tr>
+        }
+    </thead>
+</table>

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WFormDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DersTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Kredi" Type="int" />
+    <Property Name="OkulYonetimId" Type="int" />
+  </EntityType>
+  <EntityType Name="OgrenciDersTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DersId" Type="int" />
+    <Property Name="OgrenciId" Type="int" />
+  </EntityType>
+  <EntityType Name="OgrenciTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdSoyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="KayitTarih" Type="nvarchar" MaxLength="50" />
+    <Property Name="OgrenciNo" Type="int" />
+    <Property Name="DTarih" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bolum" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="OkulYonetimTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdSoyad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gorevi" Type="nvarchar" MaxLength="50" />
+    <Property Name="YonetimTip" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_DersTab_OkulYonetimTab">
+    <End Role="OkulYonetimTab" Type="Self.OkulYonetimTab" Multiplicity="0..1" />
+    <End Role="DersTab" Type="Self.DersTab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OkulYonetimTab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DersTab">
+        <PropertyRef Name="OkulYonetimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OgrenciDersTab_DersTab">
+    <End Role="DersTab" Type="Self.DersTab" Multiplicity="0..1" />
+    <End Role="OgrenciDersTab" Type="Self.OgrenciDersTab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DersTab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OgrenciDersTab">
+        <PropertyRef Name="DersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OgrenciDersTab_OgrenciTab">
+    <End Role="OgrenciTab" Type="Self.OgrenciTab" Multiplicity="0..1" />
+    <End Role="OgrenciDersTab" Type="Self.OgrenciDersTab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OgrenciTab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OgrenciDersTab">
+        <PropertyRef Name="OgrenciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WFormDBModelStoreContainer">
+    <EntitySet Name="DersTab" EntityType="Self.DersTab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OgrenciDersTab" EntityType="Self.OgrenciDersTab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OgrenciTab" EntityType="Self.OgrenciTab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OkulYonetimTab" EntityType="Self.OkulYonetimTab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DersTab_OkulYonetimTab" Association="Self.FK_DersTab_OkulYonetimTab">
+      <End Role="OkulYonetimTab" EntitySet="OkulYonetimTab" />
+      <End Role="DersTab" EntitySet="DersTab" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OgrenciDersTab_DersTab" Association="Self.FK_OgrenciDersTab_DersTab">
+      <End Role="DersTab" EntitySet="DersTab" />
+      <End Role="OgrenciDersTab" EntitySet="OgrenciDersTab" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OgrenciDersTab_OgrenciTab" Association="Self.FK_OgrenciDersTab_OgrenciTab">
+      <End Role="OgrenciTab" EntitySet="OgrenciTab" />
+      <End Role="OgrenciDersTab" EntitySet="OgrenciDersTab" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

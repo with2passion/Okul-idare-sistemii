@@ -1,0 +1,19 @@
+﻿@model OkulProje.Models.OgrenciDers
+@using (Html.BeginForm("Kaydet", "OgrenciDers", FormMethod.Post))
+{
+    <table width="40%">
+        <tr>
+            <td style="width:20%">Ders Id</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.DersId,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Ogrenci Id</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.OgrenciId,new{@class="form-control"})
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Kaydet" />
+}

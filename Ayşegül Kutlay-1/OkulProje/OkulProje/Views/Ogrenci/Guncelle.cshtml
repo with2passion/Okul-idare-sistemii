@@ -1,0 +1,38 @@
+﻿@model OkulProje.Models.Ogrenci
+@using (Html.BeginForm("Guncelle", "Ogrenci", FormMethod.Post))
+{
+    <table width="40%">
+        <tr>
+            <td style="width:20%">Ad Soyad</td>
+            <td style="width:80%">
+                @Html.HiddenFor(m=>m.Id)
+                @Html.TextBoxFor(m=>m.AdSoyad,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Kayıt Tarih</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.KayitTarih,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Öğrenci No</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.OgrenciNo,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Doğum Tarih</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.Dtarih,new{@class="form-control"})
+            </td>
+        </tr>
+        <tr>
+            <td style="width:20%">Bölüm</td>
+            <td style="width:80%">
+                @Html.TextBoxFor(m=>m.Bolum,new{@class="form-control"})
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Guncelle" />
+}

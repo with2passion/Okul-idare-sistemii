@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WFormDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DersTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Kredi" Type="Int32" />
+    <Property Name="OkulYonetimId" Type="Int32" />
+    <NavigationProperty Name="OkulYonetimTab" Relationship="Self.FK_DersTab_OkulYonetimTab" FromRole="DersTab" ToRole="OkulYonetimTab" />
+    <NavigationProperty Name="OgrenciDersTab" Relationship="Self.FK_OgrenciDersTab_DersTab" FromRole="DersTab" ToRole="OgrenciDersTab" />
+  </EntityType>
+  <EntityType Name="OgrenciDersTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DersId" Type="Int32" />
+    <Property Name="OgrenciId" Type="Int32" />
+    <NavigationProperty Name="DersTab" Relationship="Self.FK_OgrenciDersTab_DersTab" FromRole="OgrenciDersTab" ToRole="DersTab" />
+    <NavigationProperty Name="OgrenciTab" Relationship="Self.FK_OgrenciDersTab_OgrenciTab" FromRole="OgrenciDersTab" ToRole="OgrenciTab" />
+  </EntityType>
+  <EntityType Name="OgrenciTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="KayitTarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OgrenciNo" Type="Int32" />
+    <Property Name="DTarih" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bolum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="OgrenciDersTab" Relationship="Self.FK_OgrenciDersTab_OgrenciTab" FromRole="OgrenciTab" ToRole="OgrenciDersTab" />
+  </EntityType>
+  <EntityType Name="OkulYonetimTab">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gorevi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="YonetimTip" Type="Int32" />
+    <NavigationProperty Name="DersTab" Relationship="Self.FK_DersTab_OkulYonetimTab" FromRole="OkulYonetimTab" ToRole="DersTab" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_DersTab_OkulYonetimTab">
+    <End Role="OkulYonetimTab" Type="Self.OkulYonetimTab" Multiplicity="0..1" />
+    <End Role="DersTab" Type="Self.DersTab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OkulYonetimTab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DersTab">
+        <PropertyRef Name="OkulYonetimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OgrenciDersTab_DersTab">
+    <End Role="DersTab" Type="Self.DersTab" Multiplicity="0..1" />
+    <End Role="OgrenciDersTab" Type="Self.OgrenciDersTab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DersTab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OgrenciDersTab">
+        <PropertyRef Name="DersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OgrenciDersTab_OgrenciTab">
+    <End Role="OgrenciTab" Type="Self.OgrenciTab" Multiplicity="0..1" />
+    <End Role="OgrenciDersTab" Type="Self.OgrenciDersTab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OgrenciTab">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OgrenciDersTab">
+        <PropertyRef Name="OgrenciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WFormDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DersTab" EntityType="Self.DersTab" />
+    <EntitySet Name="OgrenciDersTab" EntityType="Self.OgrenciDersTab" />
+    <EntitySet Name="OgrenciTab" EntityType="Self.OgrenciTab" />
+    <EntitySet Name="OkulYonetimTab" EntityType="Self.OkulYonetimTab" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_DersTab_OkulYonetimTab" Association="Self.FK_DersTab_OkulYonetimTab">
+      <End Role="OkulYonetimTab" EntitySet="OkulYonetimTab" />
+      <End Role="DersTab" EntitySet="DersTab" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OgrenciDersTab_DersTab" Association="Self.FK_OgrenciDersTab_DersTab">
+      <End Role="DersTab" EntitySet="DersTab" />
+      <End Role="OgrenciDersTab" EntitySet="OgrenciDersTab" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OgrenciDersTab_OgrenciTab" Association="Self.FK_OgrenciDersTab_OgrenciTab">
+      <End Role="OgrenciTab" EntitySet="OgrenciTab" />
+      <End Role="OgrenciDersTab" EntitySet="OgrenciDersTab" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
